@@ -1,0 +1,35 @@
+server:
+  port: 9000
+
+logging:
+  level:
+    org.springframework.security: trace
+
+spring:
+  security:
+    user:
+      name: user
+      password: password
+    oauth2:
+      authorizationserver:
+        client:
+          oidc-client:
+            registration:
+              client-id: "12345678"
+              client-secret: "{noop}client12345678-secret"
+              client-name: "HealthKey"
+              client-authentication-methods:
+                - "client_secret_basic"
+              authorization-grant-types:
+                - "authorization_code"
+                - "token-exchange"
+                - "refresh_token"
+              redirect-uris:
+                - "http://localhost:8000/api/sso/callback"
+              post-logout-redirect-uris:
+                - "http://localhost:8000/sso"
+              scopes:
+                - "openid"
+                - "profile"
+                - "email"
+            require-authorization-consent: true
